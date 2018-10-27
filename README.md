@@ -1,7 +1,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/FloatingPanel.svg)](https://cocoapods.org/pods/FloatingPanel)
 [![Swift 4.2](https://img.shields.io/badge/Swift-4.2-orange.svg?style=flat)](https://swift.org/)
 
-#  FAPopoverInteractiveTransition
+#  FAInteractivePopover
 
 An transitioning delegate for presenting and dismissing view controllers like AppleMusic player popover.
 
@@ -75,4 +75,4 @@ Evgeny Bogomolov <beastgrim@gmail.com>
 
 ## License
 
-FAPopoverInteractiveTransition is available under the MIT license. See the LICENSE file for more info.
+FAInteractivePopover is available under the MIT license. See the LICENSE file for more info.
