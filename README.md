@@ -5,7 +5,7 @@
 
 	An transitioning delegate for presenting and dismissing view controllers like AppleMusic player popover.
 
-![Maps](https://github.com/beastgrim/FAPopoverInteractiveTransition/tree/master/Resources/Preview.gif)
+![Preview](https://github.com/beastgrim/FAPopoverInteractiveTransition/tree/master/Resources/Preview.gif)
 
 
 ## Usage
