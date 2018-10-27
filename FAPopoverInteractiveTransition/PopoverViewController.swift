@@ -7,8 +7,22 @@
 //
 
 import UIKit
-
 class PopoverViewController: UIViewController {
+
+    weak var interactivePresentor: FAPopoverInteractiveTransition?
+    
+    var scrollView: UIScrollView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.scrollView = UIScrollView()
+        //...
+        // Enable dismiss interaction by your an scroll view
+        self.interactivePresentor?.scrollView = self.scrollView
+    }
+}
+class SPopoverViewController: UIViewController {
 
     var scrollView: UIScrollView!
     var contentView: UIView!
