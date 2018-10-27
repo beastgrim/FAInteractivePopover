@@ -575,7 +575,7 @@ extension FAPopoverInteractiveTransition: UIViewControllerAnimatedTransitioning 
 // MARK: - UIGestureRecognizerDelegate
 extension FAPopoverInteractiveTransition: UIGestureRecognizerDelegate {
     
-    private func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return self.panGestureRecognizerShouldBegin && !self.disableInternalPanGestureRecognizer
     }
 }
