@@ -9,7 +9,7 @@
 import UIKit
 
 @objc
-protocol FAPopoverInteractiveTransitionDelegate: NSObjectProtocol {
+public protocol FAPopoverInteractiveTransitionDelegate: NSObjectProtocol {
     
     @objc optional
     func popoverInteractiveTransitionDidStartInteractive(_ interactiveTransition: FAPopoverInteractiveTransition)
@@ -28,9 +28,7 @@ class FAInteractiveTransitionView: UIView {
     }
 }
 
-class FAPopoverInteractiveTransition: NSObject,
-    UIViewControllerAnimatedTransitioning,
-    UIViewControllerInteractiveTransitioning,
+public class FAPopoverInteractiveTransition: NSObject,
     UIViewControllerTransitioningDelegate {
     
     enum TransitionType {
@@ -46,8 +44,8 @@ class FAPopoverInteractiveTransition: NSObject,
     }
     
     // MARK: - Public vars
-    weak var delegate: FAPopoverInteractiveTransitionDelegate?
-    weak var scrollView: UIScrollView? {
+    public weak var delegate: FAPopoverInteractiveTransitionDelegate?
+    public var scrollView: UIScrollView? {
         didSet {
             oldValue?.panGestureRecognizer.removeTarget(self, action: nil)
             self.scrollView?.panGestureRecognizer.addTarget(self, action: #selector(scrollPanGestureRecognizerAction(_:)))
@@ -56,22 +54,22 @@ class FAPopoverInteractiveTransition: NSObject,
         }
     }
 
-    var presentingControllerTopOffset: CGFloat = 12
-    var presentingControllerMinScale: CGFloat = 0.92
-    var transitionDuration: TimeInterval = 0.6
+    public var presentingControllerTopOffset: CGFloat = 12
+    public var presentingControllerMinScale: CGFloat = 0.92
+    public var transitionDuration: TimeInterval = 0.6
     
 /**
      Disable pan gesture recognizer for interactive dismiss.
      
      # If you dismiss popover by scrollView delegate events set disableInternalPanGestureRecognizer to true.
 */
-    var disableInternalPanGestureRecognizer: Bool = false
+    public var disableInternalPanGestureRecognizer: Bool = false
 
-    private(set) var statusBarStyle: UIStatusBarStyle?
-    private(set) var transitionType: TransitionType = .presenting
-    private(set) weak var presentingViewController: UIViewController?
-    private(set) weak var presentedViewController: UIViewController?
-    private(set) var isInteractiveTransitionStarted: Bool = false
+/**
+    Returns status bar style for presenting popover according preferredStatusBarStyle
+*/
+    public private(set) var statusBarStyle: UIStatusBarStyle?
+    public private(set) var isInteractiveTransitionStarted: Bool = false
     
     deinit {
         self.scrollView = nil
@@ -154,7 +152,6 @@ class FAPopoverInteractiveTransition: NSObject,
             let velocity = scrollView.panGestureRecognizer.velocity(in: nil)
             
             if (self.fractionComplete < 0.88 || velocity.y > 1500) {
-                self.printDebug("\(#function) finish")
                 
                 if let controller = self.presentedViewController {
                     
@@ -187,7 +184,6 @@ class FAPopoverInteractiveTransition: NSObject,
             guard let presentedViewController = self.presentedViewController else { return }
                 
             if self.isAnimating == false {
-                self.printDebug("_Dismiss")
                 self.wantsInteractiveStart = true
                 presentedViewController.dismiss(animated: true, completion: nil)
             }
@@ -198,7 +194,6 @@ class FAPopoverInteractiveTransition: NSObject,
         }
 
         if gesture.state == .began {
-            self.printDebug("\(#function) began")
             
             if self.gestureRecognizerState == .inactive {
                 startInteraction()
@@ -225,11 +220,7 @@ class FAPopoverInteractiveTransition: NSObject,
             guard let transitionContext = self.transitionContext,
                 self.isInteractiveTransitionStarted else { return }
             
-            
-            self.printDebug("\(#function) \(percent) \(velocity.y)")
-            
             if (percent < 0.88 || velocity.y > 1500) {
-                self.printDebug("\(#function) finish")
                 
                 let controller = transitionContext.viewController(forKey: .to)
                 self.statusBarStyle = controller?.preferredStatusBarStyle
@@ -239,7 +230,6 @@ class FAPopoverInteractiveTransition: NSObject,
                 self.animateTransition(using: transitionContext)
                 
             } else {
-                self.printDebug("\(#function) cancel")
                 
                 self.statusBarStyle = nil
                 
@@ -261,41 +251,33 @@ class FAPopoverInteractiveTransition: NSObject,
     
     // MARK: - KVO
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         self.scrollViewDidScroll(self.scrollView!)
     }
     
     
     // MARK: - Private vars
+    
+    private var transitionType: TransitionType = .presenting
+    private weak var presentingViewController: UIViewController?
+    private weak var presentedViewController: UIViewController?
+    
     private var isDismissedByScrollView: Bool = false
 
     private var panGestureRecognizer: UIPanGestureRecognizer?
     private var panGestureRecognizerShouldBegin: Bool = true
     private var fractionComplete: CGFloat = 0.0
-    private var isAnimating: Bool = false {
-        didSet {
-            if oldValue != self.isAnimating {
-                self.printDebug("_\(#function) \(self.isAnimating)")
-            }
-        }
-    }
+    private var isAnimating: Bool = false
     private var animationTransaction: Int = 0
     private var transitionView: FAInteractiveTransitionView!
     
-    private var gestureRecognizerState: GestureState = .inactive {
-        didSet {
-            if self.gestureRecognizerState != oldValue {
-                self.printDebug("_\(#function) \(self.gestureRecognizerState.rawValue)")
-            }
-        }
-    }
+    private var gestureRecognizerState: GestureState = .inactive
     
     
     // MARK: - Private func
     
     private func completeTransition(transitionContext: UIViewControllerContextTransitioning) {
-        self.printDebug("_\(#function)")
         
         if self.transitionType == .dismissing,
             !transitionContext.transitionWasCancelled,
@@ -310,8 +292,6 @@ class FAPopoverInteractiveTransition: NSObject,
     }
     
     private func updateInteractiveTransition(progress: CGFloat, transitionContext: UIViewControllerContextTransitioning) {
-        
-        self.printDebug("_\(#function) \(progress)")
         
         let inView = transitionContext.containerView
         let frame = inView.bounds
@@ -382,16 +362,100 @@ class FAPopoverInteractiveTransition: NSObject,
         return transform.concatenating(CGAffineTransform(scaleX: scale, y: scale))
     }
     
+    private weak var transitionContext: UIViewControllerContextTransitioning?
+
+    
+   
+
+    
+    // MARK: - UIViewControllerTransitioningDelegate
+
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        
+        return nil
+    }
+    
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        self.presentedViewController = presented
+        self.presentingViewController = presenting
+        
+        return self
+    }
+    
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        self.transitionType = .dismissing
+        
+        return self
+    }
+    
+    
+    public func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        
+        self.transitionType = .presenting
+        return self
+    }
+    
+    public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        
+        self.transitionType = .dismissing
+        return self
+    }
+    
     
     // MARK: - UIViewControllerInteractiveTransitioning
-    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+    public private(set) var completionSpeed: CGFloat = 1.0
+    public private(set) var completionCurve: UIView.AnimationCurve = .easeOut
+    public private(set) var wantsInteractiveStart: Bool = false
+}
+
+extension FAPopoverInteractiveTransition: UIViewControllerInteractiveTransitioning {
+    
+    public func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        
+        self.transitionContext = transitionContext
+        
+        if self.isDismissedByScrollView {
+            
+            self.isInteractiveTransitionStarted = false
+            
+            self.statusBarStyle = nil
+            self.animateTransition(using: transitionContext)
+            
+        } else if transitionContext.isInteractive {
+            
+            self.isInteractiveTransitionStarted = true
+            self.fractionComplete = 1.0
+            
+            self.statusBarStyle = nil
+            
+            self.updateInteractiveTransition(progress: self.fractionComplete, transitionContext: transitionContext)
+            
+        } else if transitionContext.isAnimated {
+            
+            self.isInteractiveTransitionStarted = false
+            self.fractionComplete = self.transitionType == .presenting ? 0.0 : 1.0
+            
+            self.statusBarStyle = transitionContext.viewController(forKey: .to)?.preferredStatusBarStyle
+            
+            self.animateTransition(using: transitionContext)
+            
+        } else {
+            fatalError("TODO not animated")
+        }
+    }
+}
+
+
+// MARK: - UIViewControllerInteractiveTransitioning
+extension FAPopoverInteractiveTransition: UIViewControllerAnimatedTransitioning {
+    
+    public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         let duration = self.transitionDuration * Double(self.completionSpeed)
-        self.printDebug("\(#function) \(duration)")
         return duration
     }
     
-    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        self.printDebug("\(#function)")
+    public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         let inView = transitionContext.containerView
         let toView: UIView! = transitionContext.view(forKey: .to) ?? transitionContext.viewController(forKey: .to)?.view
@@ -488,125 +552,30 @@ class FAPopoverInteractiveTransition: NSObject,
                     if self.gestureRecognizerState == .inactive {
                         self.completeTransition(transitionContext: transitionContext)
                     } else {
-                        self.printDebug("_Disable completion")
+                        // Completion disabled
                     }
                 } else {
-                    self.printDebug("_Invalid animation transaction")
+                    // New animation was started
                 }
             }
         }
     }
     
-    func animationEnded(_ transitionCompleted: Bool) {
-        self.printDebug("\(#function)")
+    public func animationEnded(_ transitionCompleted: Bool) {
         
         self.gestureRecognizerState = .inactive
         self.isInteractiveTransitionStarted = false
         self.isDismissedByScrollView = false
         self.wantsInteractiveStart = false
     }
-    
-    
-    // MARK: - UIViewControllerTransitioningDelegate
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        self.printDebug("\(#function)")
-        
-        return nil
-    }
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.printDebug("\(#function)")
-        
-        self.presentedViewController = presented
-        self.presentingViewController = presenting
-        
-        return self
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.printDebug("\(#function)")
-        self.transitionType = .dismissing
-        
-        return self
-    }
-    
-    
-    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        self.printDebug("\(#function)")
-        
-        self.transitionType = .presenting
-        return self
-    }
-    
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        self.printDebug("\(#function)")
-        
-        self.transitionType = .dismissing
-        return self
-    }
-    
-    
-    // MARK: - UIViewControllerAnimatedTransitioning
-    private weak var transitionContext: UIViewControllerContextTransitioning?
-    func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        self.printDebug("\(#function)")
-        
-        self.transitionContext = transitionContext
-
-        if self.isDismissedByScrollView {
-            
-            self.isInteractiveTransitionStarted = false
-            
-            self.statusBarStyle = nil
-            self.animateTransition(using: transitionContext)
-            
-        } else if transitionContext.isInteractive {
-            
-            self.isInteractiveTransitionStarted = true
-            self.fractionComplete = 1.0
-            
-            self.statusBarStyle = nil
-            
-            self.updateInteractiveTransition(progress: self.fractionComplete, transitionContext: transitionContext)
-            
-        } else if transitionContext.isAnimated {
-            
-            self.isInteractiveTransitionStarted = false
-            self.fractionComplete = self.transitionType == .presenting ? 0.0 : 1.0
-            
-            self.statusBarStyle = transitionContext.viewController(forKey: .to)?.preferredStatusBarStyle
-            
-            self.animateTransition(using: transitionContext)
-            
-        } else {
-            fatalError("TODO not animated")
-        }
-    }
-    
-    
-    var completionSpeed: CGFloat = 1.0
-    var completionCurve: UIView.AnimationCurve = .easeOut
-    private(set) var wantsInteractiveStart: Bool = false
-    
 }
+
 
 // MARK: - UIGestureRecognizerDelegate
 extension FAPopoverInteractiveTransition: UIGestureRecognizerDelegate {
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    private func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return self.panGestureRecognizerShouldBegin && !self.disableInternalPanGestureRecognizer
     }
 }
 
-extension FAPopoverInteractiveTransition {
-    
-    func printDebug(_ items: Any...) {
-        
-        if items.count == 1 {
-            print(items.first!)
-        } else {
-            print(items)
-        }
-    }
-}

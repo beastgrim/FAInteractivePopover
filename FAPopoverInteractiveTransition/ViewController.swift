@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FAInteractivePopover
 
 class ViewController: UIViewController {
     

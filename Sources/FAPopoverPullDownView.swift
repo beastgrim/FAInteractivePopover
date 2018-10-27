@@ -8,17 +8,17 @@
 
 import UIKit
 
-class FAPopoverPullDownView: UIControl {
+ public class FAPopoverPullDownView: UIControl {
 
     // MARK: - Public
     
-    weak var respondingScrollView: UIScrollView? {
+    public weak var respondingScrollView: UIScrollView? {
         didSet {
             let tap = self.tapGestureRecognizer
             self.respondingScrollView?.addGestureRecognizer(tap)
         }
     }
-    var active: Bool = true {
+    public var active: Bool = true {
         didSet {
             if self.active != oldValue {
                 let layer = self.shapeLayer
@@ -31,7 +31,7 @@ class FAPopoverPullDownView: UIControl {
     
     // MARK: - Life
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         self.shapeLayer = CAShapeLayer()
         super.init(frame: frame)
         
@@ -67,14 +67,14 @@ class FAPopoverPullDownView: UIControl {
     
     // MARK: - Override
     
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    override public func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if let scrollView = self.respondingScrollView {
             return scrollView
         }
        return super.hitTest(point, with: event)
     }
 
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         
         self.shapeLayer.frame = self.bounds
@@ -123,7 +123,7 @@ class FAPopoverPullDownView: UIControl {
 //MARK: - Gesture Recognizer Delegate
 extension FAPopoverPullDownView: UIGestureRecognizerDelegate {
     
-    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    override public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         
         let point = gestureRecognizer.location(in: self)
         let shouldBegin = self.bounds.contains(point)

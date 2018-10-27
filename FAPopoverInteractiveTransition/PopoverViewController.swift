@@ -7,13 +7,22 @@
 //
 
 import UIKit
+import FAInteractivePopover
+
+extension PopoverViewController {
+    static var popoverAnimator: FAPopoverInteractiveTransition? {
+        didSet {
+            print("")
+        }
+    }
+}
 
 class PopoverViewController: UIViewController {
 
     var scrollView: UIScrollView!
     var contentView: UIView!
     var pullDownView: FAPopoverPullDownView!
-    static var popoverAnimator: FAPopoverInteractiveTransition?
+    
     var popoverAnimator: FAPopoverInteractiveTransition {
         if PopoverViewController.popoverAnimator == nil {
             PopoverViewController.popoverAnimator = FAPopoverInteractiveTransition()
@@ -65,31 +74,20 @@ class PopoverViewController: UIViewController {
         var size = self.view.bounds.size
         size.height *= 10
         scrollView.contentSize = size
-        scrollView.delegate = self
         self.scrollView = scrollView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        let button = UIButton(type: .system)
-//        button.setTitle("Dismiss", for: .normal)
-//        button.sizeToFit()
-//        button.center = self.scrollView.center
-//        button.addTarget(self, action: #selector(dismiss(_:)), for: .touchUpInside)
-//        self.scrollView.addSubview(button)
-        
         let pullDown = FAPopoverPullDownView(frame: CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: 30))
         pullDown.autoresizingMask = [.flexibleWidth,.flexibleBottomMargin]
         pullDown.backgroundColor = .clear
-//        pullDown.tapGestureRecognizer.addTarget(self, action: #selector(dismiss(_:)))
         pullDown.addTarget(self, action: #selector(dismiss(_:)), for: .touchUpInside)
         pullDown.respondingScrollView = self.scrollView
 
         self.contentView.addSubview(pullDown)
         self.pullDownView = pullDown
-        
-//        self.scrollView.isHidden = true
         
         self.popoverAnimator.disableInternalPanGestureRecognizer = true
         self.popoverAnimator.delegate = self
@@ -98,17 +96,7 @@ class PopoverViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        PopoverViewController.popoverAnimator = nil
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        print("\(#function) \(String(describing: self.classForCoder))")
-//    }
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        print("\(#function) \(String(describing: self.classForCoder))")
-//    }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -132,49 +120,5 @@ extension PopoverViewController: FAPopoverInteractiveTransitionDelegate {
     func popoverInteractiveTransition(_ interactiveTransition: FAPopoverInteractiveTransition, didChangeFractionCompleted fractionCompleted: CGFloat) {
         let active = !interactiveTransition.isInteractiveTransitionStarted || fractionCompleted == 0 || fractionCompleted == 1.0
         self.pullDownView?.active = active
-    }
-}
-
-
-extension PopoverViewController: UIViewControllerTransitioningDelegate {
-    
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    
-        return self.popoverAnimator
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        return self.popoverAnimator
-    }
-    
-   
-    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        
-        return self.popoverAnimator
-    }
-    
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        
-        return self.popoverAnimator
-    }
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        
-        return nil
-    }
-
-}
-
-
-extension PopoverViewController: UIScrollViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        self.popoverAnimator.scrollViewDidScroll(scrollView)
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        self.popoverAnimator.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
     }
 }

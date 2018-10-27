@@ -6,6 +6,6 @@ target 'FAPopoverInteractiveTransition' do
   use_frameworks!
 
   # Pods for FAPopoverInteractiveTransition
-  pod 'FAPopoverInteractiveTransition', :path => '.'
+  pod 'FAInteractivePopover', :path => '.'
 
 end

@@ -12,13 +12,14 @@
 		844F5FFD21839E8300F48224 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844F5FFB21839E8300F48224 /* Main.storyboard */; };
 		844F5FFF21839E8400F48224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 844F5FFE21839E8400F48224 /* Assets.xcassets */; };
 		844F600221839E8400F48224 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 844F600021839E8400F48224 /* LaunchScreen.storyboard */; };
-		844F600C2183A15B00F48224 /* FAPopoverInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F600A2183A15B00F48224 /* FAPopoverInteractiveTransition.swift */; };
-		844F600D2183A15B00F48224 /* FAPopoverPullDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F600B2183A15B00F48224 /* FAPopoverPullDownView.swift */; };
 		844F600F2183A1EC00F48224 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F600E2183A1EC00F48224 /* PopoverViewController.swift */; };
 		844F60112183A29000F48224 /* StatusBarStyleFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F60102183A29000F48224 /* StatusBarStyleFix.swift */; };
+		D4A61053FA842A27B27DBB10 /* Pods_FAPopoverInteractiveTransition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1577602743B3E73C94D18E98 /* Pods_FAPopoverInteractiveTransition.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1577602743B3E73C94D18E98 /* Pods_FAPopoverInteractiveTransition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FAPopoverInteractiveTransition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FF3DD2A4A79BEA8578F8480 /* Pods-FAPopoverInteractiveTransition.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FAPopoverInteractiveTransition.release.xcconfig"; path = "Pods/Target Support Files/Pods-FAPopoverInteractiveTransition/Pods-FAPopoverInteractiveTransition.release.xcconfig"; sourceTree = "<group>"; };
 		844F5FF421839E8300F48224 /* FAPopoverInteractiveTransition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FAPopoverInteractiveTransition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		844F5FF721839E8300F48224 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		844F5FF921839E8300F48224 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,10 +27,9 @@
 		844F5FFE21839E8400F48224 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		844F600121839E8400F48224 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		844F600321839E8400F48224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		844F600A2183A15B00F48224 /* FAPopoverInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAPopoverInteractiveTransition.swift; sourceTree = "<group>"; };
-		844F600B2183A15B00F48224 /* FAPopoverPullDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAPopoverPullDownView.swift; sourceTree = "<group>"; };
 		844F600E2183A1EC00F48224 /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		844F60102183A29000F48224 /* StatusBarStyleFix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarStyleFix.swift; sourceTree = "<group>"; };
+		C0F23480F03BE1EDAD0AF878 /* Pods-FAPopoverInteractiveTransition.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FAPopoverInteractiveTransition.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FAPopoverInteractiveTransition/Pods-FAPopoverInteractiveTransition.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,18 +37,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A61053FA842A27B27DBB10 /* Pods_FAPopoverInteractiveTransition.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E24E8DC16B3681DF18CB697 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1577602743B3E73C94D18E98 /* Pods_FAPopoverInteractiveTransition.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		844F5FEB21839E8300F48224 = {
 			isa = PBXGroup;
 			children = (
-				844F60092183A15B00F48224 /* Sources */,
 				844F5FF621839E8300F48224 /* FAPopoverInteractiveTransition */,
 				844F5FF521839E8300F48224 /* Products */,
+				C787FF35C6529DD9FEB6FC91 /* Pods */,
+				7E24E8DC16B3681DF18CB697 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,13 +85,13 @@
 			path = FAPopoverInteractiveTransition;
 			sourceTree = "<group>";
 		};
-		844F60092183A15B00F48224 /* Sources */ = {
+		C787FF35C6529DD9FEB6FC91 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				844F600A2183A15B00F48224 /* FAPopoverInteractiveTransition.swift */,
-				844F600B2183A15B00F48224 /* FAPopoverPullDownView.swift */,
+				C0F23480F03BE1EDAD0AF878 /* Pods-FAPopoverInteractiveTransition.debug.xcconfig */,
+				4FF3DD2A4A79BEA8578F8480 /* Pods-FAPopoverInteractiveTransition.release.xcconfig */,
 			);
-			path = Sources;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -91,9 +101,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 844F600621839E8400F48224 /* Build configuration list for PBXNativeTarget "FAPopoverInteractiveTransition" */;
 			buildPhases = (
+				5FF1E2C5C63E57CFFBB1DB6D /* [CP] Check Pods Manifest.lock */,
 				844F5FF021839E8300F48224 /* Sources */,
 				844F5FF121839E8300F48224 /* Frameworks */,
 				844F5FF221839E8300F48224 /* Resources */,
+				9C185BEEEEA964745DD94B3A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,17 +163,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5FF1E2C5C63E57CFFBB1DB6D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FAPopoverInteractiveTransition-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C185BEEEEA964745DD94B3A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-FAPopoverInteractiveTransition/Pods-FAPopoverInteractiveTransition-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FAInteractivePopover/FAInteractivePopover.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FAInteractivePopover.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FAPopoverInteractiveTransition/Pods-FAPopoverInteractiveTransition-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		844F5FF021839E8300F48224 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				844F600D2183A15B00F48224 /* FAPopoverPullDownView.swift in Sources */,
 				844F5FFA21839E8300F48224 /* ViewController.swift in Sources */,
 				844F600F2183A1EC00F48224 /* PopoverViewController.swift in Sources */,
 				844F60112183A29000F48224 /* StatusBarStyleFix.swift in Sources */,
 				844F5FF821839E8300F48224 /* AppDelegate.swift in Sources */,
-				844F600C2183A15B00F48224 /* FAPopoverInteractiveTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +362,7 @@
 		};
 		844F600721839E8400F48224 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0F23480F03BE1EDAD0AF878 /* Pods-FAPopoverInteractiveTransition.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -324,6 +382,7 @@
 		};
 		844F600821839E8400F48224 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FF3DD2A4A79BEA8578F8480 /* Pods-FAPopoverInteractiveTransition.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
