@@ -45,9 +45,29 @@ class PopoverViewController: UIViewController {
         //...
         // Enable dismiss interaction by your an scroll view
         self.interactivePresentor?.scrollView = self.scrollView
+        // If needed
+        self.interactivePresentor?.delegate = self
     }
 }
 ```
+
+#### Animating pull down view
+
+```swift
+
+extension PopoverViewController: FAPopoverInteractiveTransitionDelegate {
+    
+    func popoverInteractiveTransitionDidEndInteractive(_ interactiveTransition: FAPopoverInteractiveTransition) {
+        self.pullDownView?.active = true
+    }
+    
+    func popoverInteractiveTransition(_ interactiveTransition: FAPopoverInteractiveTransition, didChangeFractionCompleted fractionCompleted: CGFloat) {
+        let active = !interactiveTransition.isInteractiveTransitionStarted || fractionCompleted == 0 || fractionCompleted == 1.0
+        self.pullDownView?.active = active
+    }
+}
+```
+
 
 ## Author
 
