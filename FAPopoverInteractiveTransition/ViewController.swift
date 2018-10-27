@@ -8,53 +8,39 @@
 
 import UIKit
 
-//class ViewController: UIViewController {
-//
-//    weak var popover: PopoverViewController?
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        self.title = "Main"
-//
-//        let button = UIButton(type: .system)
-//        button.setTitle("Show", for: .normal)
-//        button.sizeToFit()
-//        button.center = self.view.center
-//        button.addTarget(self, action: #selector(show(_:)), for: .touchUpInside)
-//        self.view.addSubview(button)
-//    }
-//
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        print("\(#function) \(String(describing: self.classForCoder))")
-//    }
-//
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return self.popover?.popoverAnimator.statusBarStyle ?? .default
-//    }
-//
-//    @objc func show(_ sender: Any?) {
-//        let popover = PopoverViewController()
-//        popover.title = "Popover"
-//        self.popover = popover
-//
-//        self.present(popover, animated: true, completion: nil)
-//    }
-//
-//}
-
 class ViewController: UIViewController {
     
-    lazy private var interactivePresentor = FAPopoverInteractiveTransition()
+    weak var popover: PopoverViewController?
+   
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.title = "Main"
+                
+        let button = UIButton(type: .system)
+        button.setTitle("Show", for: .normal)
+        button.sizeToFit()
+        button.center = self.view.center
+        button.addTarget(self, action: #selector(show(_:)), for: .touchUpInside)
+        self.view.addSubview(button)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("\(#function) \(String(describing: self.classForCoder))")
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.popover?.popoverAnimator.statusBarStyle ?? .default
+    }
     
     @objc func show(_ sender: Any?) {
         let popover = PopoverViewController()
         popover.title = "Popover"
-        popover.modalPresentationStyle = .custom
-        popover.transitioningDelegate = self.interactivePresentor
-        
+        self.popover = popover
+
         self.present(popover, animated: true, completion: nil)
     }
+    
 }
 
