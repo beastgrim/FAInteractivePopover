@@ -20,7 +20,6 @@ class ViewController: UIViewController {
     
     @objc func show(_ sender: Any?) {
         let popover = PopoverViewController()
-        popover.title = "Popover"
         popover.modalPresentationStyle = .custom
         popover.transitioningDelegate = self.interactivePresentor
         
