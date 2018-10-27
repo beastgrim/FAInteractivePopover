@@ -3,7 +3,7 @@
 
 #  FAPopoverInteractiveTransition
 
-	An transitioning delegate for presenting and dismissing view controllers like AppleMusic player popover.
+An transitioning delegate for presenting and dismissing view controllers like AppleMusic player popover.
 
 ![Preview](https://github.com/beastgrim/FAPopoverInteractiveTransition/raw/master/Resources/Preview.gif)
 
@@ -49,3 +49,10 @@ class PopoverViewController: UIViewController {
 }
 ```
 
+## Author
+
+Evgeny Bogomolov <beastgrim@gmail.com>
+
+## License
+
+FAPopoverInteractiveTransition is available under the MIT license. See the LICENSE file for more info.
