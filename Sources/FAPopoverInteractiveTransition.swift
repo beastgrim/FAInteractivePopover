@@ -102,7 +102,8 @@ public class FAPopoverInteractiveTransition: NSObject,
         guard self.isDismissedByScrollView == false,
             let popoverController = self.presentedViewController,
             let viewController = self.presentingViewController,
-            let containerView = self.transitionView else {
+            let containerView = self.transitionView,
+            scrollView.window != nil else {
             return
         }
         
