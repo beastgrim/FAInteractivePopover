@@ -423,7 +423,8 @@ extension FAPopoverInteractiveTransition: UIViewControllerInteractiveTransitioni
             self.statusBarStyle = nil
             self.animateTransition(using: transitionContext)
             
-        } else if transitionContext.isInteractive {
+        } else if transitionContext.isInteractive,
+            self.wantsInteractiveStart {
             
             self.isInteractiveTransitionStarted = true
             self.fractionComplete = 1.0
