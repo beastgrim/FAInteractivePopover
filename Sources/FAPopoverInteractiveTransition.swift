@@ -34,9 +34,6 @@ public class FAPopoverInteractiveTransition: NSObject,
     enum TransitionType {
         case presenting
         case dismissing
-        var reversed: TransitionType {
-            return self == .presenting ? .dismissing : .presenting
-        }
     }
     enum GestureState : Int {
         case inactive
@@ -47,10 +44,17 @@ public class FAPopoverInteractiveTransition: NSObject,
     public weak var delegate: FAPopoverInteractiveTransitionDelegate?
     public var scrollView: UIScrollView? {
         didSet {
-            oldValue?.panGestureRecognizer.removeTarget(self, action: nil)
-            self.scrollView?.panGestureRecognizer.addTarget(self, action: #selector(scrollPanGestureRecognizerAction(_:)))
-            oldValue?.removeObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset))
-            self.scrollView?.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: .new, context: nil)
+            let keyPath = #keyPath(UIScrollView.contentOffset)
+            let action = #selector(scrollPanGestureRecognizerAction(_:))
+            
+            if let oldValue = oldValue {
+                oldValue.panGestureRecognizer.removeTarget(self, action: action)
+                oldValue.removeObserver(self, forKeyPath: keyPath)
+            }
+            if let newValue = self.scrollView {
+                newValue.panGestureRecognizer.addTarget(self, action: action)
+                newValue.addObserver(self, forKeyPath: keyPath, options: .new, context: nil)
+            }
         }
     }
 
@@ -73,7 +77,6 @@ public class FAPopoverInteractiveTransition: NSObject,
     
     deinit {
         self.scrollView = nil
-        print("\(#function) \(self)")
     }
     
     
@@ -201,7 +204,6 @@ public class FAPopoverInteractiveTransition: NSObject,
             }
             
         } else if gesture.state == .changed {
-            //            self.printDebug("\(#function) \(percent)")
          
             if self.isInteractiveTransitionStarted {
                 

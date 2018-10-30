@@ -9,27 +9,17 @@
 import UIKit
 import FAInteractivePopover
 
-extension PopoverViewController {
-    static var popoverAnimator: FAPopoverInteractiveTransition? {
-        didSet {
-            print("")
-        }
-    }
-}
 
-class PopoverViewController: UIViewController {
+class PopoverViewController: UIViewController, UIScrollViewDelegate, FAInteractivePresentableProtocol {
+    
+    var interactiveTransitor: FAPopoverInteractiveTransition?
+    
 
     var scrollView: UIScrollView!
     var contentView: UIView!
     var pullDownView: FAPopoverPullDownView!
-    
-    var popoverAnimator: FAPopoverInteractiveTransition {
-        if PopoverViewController.popoverAnimator == nil {
-            PopoverViewController.popoverAnimator = FAPopoverInteractiveTransition()
-        }
-        return PopoverViewController.popoverAnimator!
-    }
 
+    
     // MARK: - Life Cycle
     
     deinit {
@@ -39,8 +29,7 @@ class PopoverViewController: UIViewController {
     convenience init() {
         self.init(nibName: nil, bundle: nil)
         
-        self.modalPresentationStyle = .custom
-        self.transitioningDelegate = self.popoverAnimator
+ 
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -66,6 +55,7 @@ class PopoverViewController: UIViewController {
         let scrollView = UIScrollView(frame: self.view.bounds.inset(by: UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)))
         scrollView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
         scrollView.backgroundColor = UIColor.groupTableViewBackground
+        scrollView.delegate = self
         contentView.addSubview(scrollView)
         
         let imageView = UIImageView(image: UIImage(named: "img"))
@@ -89,9 +79,10 @@ class PopoverViewController: UIViewController {
         self.contentView.addSubview(pullDown)
         self.pullDownView = pullDown
         
-        self.popoverAnimator.disableInternalPanGestureRecognizer = true
-        self.popoverAnimator.delegate = self
-        self.popoverAnimator.scrollView = self.scrollView
+        if let transitor = self.interactiveTransitor {
+            transitor.disableInternalPanGestureRecognizer = true
+            transitor.scrollView = self.scrollView
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -105,6 +96,12 @@ class PopoverViewController: UIViewController {
     @objc func dismiss(_ sender: Any?) {
         
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+//        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+//            self.dismiss(animated: true, completion: nil)
+//        }
     }
 
 }

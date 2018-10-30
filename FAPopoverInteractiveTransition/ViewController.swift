@@ -11,12 +11,14 @@ import FAInteractivePopover
 
 class ViewController: UIViewController {
     
-    weak var popover: PopoverViewController?
+    lazy private var interactiveTransitor = FAPopoverInteractiveTransition()
    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Main"
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reload(_:)))
                 
         let button = UIButton(type: .system)
         button.setTitle("Show", for: .normal)
@@ -32,15 +34,26 @@ class ViewController: UIViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.popover?.popoverAnimator.statusBarStyle ?? .default
+        return self.interactiveTransitor.statusBarStyle ?? .default
+    }
+    
+    deinit {
+        print("\(#function) \(self)")
     }
     
     @objc func show(_ sender: Any?) {
         let popover = PopoverViewController()
         popover.title = "Popover"
-        self.popover = popover
+        popover.interactiveTransitor = self.interactiveTransitor
+        popover.setupInteractiveTransition()
 
         self.present(popover, animated: true, completion: nil)
+    }
+    
+    @objc func reload(_ sender: Any?) {
+        
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()!
+        self.view.window?.rootViewController = vc
     }
     
 }
