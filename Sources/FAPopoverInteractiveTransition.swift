@@ -43,14 +43,19 @@ public class FAPopoverInteractiveTransition: NSObject,
     // MARK: - Public vars
     public weak var delegate: FAPopoverInteractiveTransitionDelegate?
     public var scrollView: UIScrollView? {
-        didSet {
+        willSet {
             let keyPath = #keyPath(UIScrollView.contentOffset)
             let action = #selector(scrollPanGestureRecognizerAction(_:))
             
-            if let oldValue = oldValue {
+            if let oldValue = self.scrollView {
                 oldValue.panGestureRecognizer.removeTarget(self, action: action)
                 oldValue.removeObserver(self, forKeyPath: keyPath)
             }
+        }
+        didSet {
+            let keyPath = #keyPath(UIScrollView.contentOffset)
+            let action = #selector(scrollPanGestureRecognizerAction(_:))
+
             if let newValue = self.scrollView {
                 newValue.panGestureRecognizer.addTarget(self, action: action)
                 newValue.addObserver(self, forKeyPath: keyPath, options: .new, context: nil)
@@ -76,7 +81,13 @@ public class FAPopoverInteractiveTransition: NSObject,
     public private(set) var isInteractiveTransitionStarted: Bool = false
     
     deinit {
-        self.scrollView = nil
+        if let oldValue = self.scrollView {
+            let keyPath = #keyPath(UIScrollView.contentOffset)
+            let action = #selector(scrollPanGestureRecognizerAction(_:))
+            
+            oldValue.panGestureRecognizer.removeTarget(self, action: action)
+            oldValue.removeObserver(self, forKeyPath: keyPath)
+        }
     }
     
     
